@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # StkFlow Analytics
 
 Dashboard de compras, estoque e consumo. Roda como app **Vite + React puro**, lendo dados de JSON local — **sem depender do Base44 em runtime**.
@@ -105,3 +106,7 @@ Documentation: [https://docs.base44.com/Integrations/Using-GitHub](https://docs.
 Base44 CLI command reference: [https://docs.base44.com/developers/references/cli/commands/introduction](https://docs.base44.com/developers/references/cli/commands/introduction)
 
 Support: [https://app.base44.com/support](https://app.base44.com/support)
+=======
+# TRANSFER-ANALISES
+TRANSFER ANALISES
+>>>>>>> 633f8f2ee0e647c0c901a83b4175a8c70672ceac
