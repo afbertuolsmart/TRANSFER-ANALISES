@@ -10,14 +10,16 @@ export async function loadAllData() {
       cache: "no-store",
     }).then((r) => (r.ok ? r.json() : []));
 
-  const [estoque, compras, consumo] = await Promise.all([
+  const [estoque, estoqueEadi, compras, consumo] = await Promise.all([
     get("estoquetransfer"),
+    get("estoqueeadi"),
     get("compratransfer"),
     get("consumotransfer"),
   ]);
 
   return {
     estoque,
+    estoqueEadi,
     compras,
     consumo,
   };
@@ -491,6 +493,7 @@ export function aggregateData(rawData) {
         familia: familiaNome,
 
         estoque: 0,
+        estoqueEadi: 0,
         compras: 0,
         consumo: 0,
 
@@ -529,6 +532,7 @@ export function aggregateData(rawData) {
           "Sem descrição",
 
         estoque: 0,
+        estoqueEadi: 0,
         compras: 0,
         consumo: 0,
 
@@ -556,6 +560,7 @@ export function aggregateData(rawData) {
         cor: nomeCor,
 
         estoque: 0,
+        estoqueEadi: 0,
         compras: 0,
         consumo: 0,
 
@@ -596,6 +601,26 @@ export function aggregateData(rawData) {
 
     familia.estoque += qtd;
     item.estoque += qtd;
+  });
+
+  // ==========================================================
+  // ESTOQUE EADI
+  // Mantido separado do estoque Transfer para exibição própria,
+  // mas incluído no Estoque Geral.
+  // ==========================================================
+
+  (rawData.estoqueEadi || []).forEach((r) => {
+    const familia = getFamilia(r.familia);
+
+    const item = getProduto(
+      familia,
+      r.produto || r.cod_prod || r.codigo,
+      r.desc_completa || r.descricao
+    );
+
+    const qtd = Number(r.qtd_fisica || 0);
+    familia.estoqueEadi += qtd;
+    item.estoqueEadi += qtd;
   });
 
 
@@ -699,7 +724,15 @@ export function aggregateData(rawData) {
 
       familia.estoqueGeral =
         familia.estoque +
+        familia.estoqueEadi +
         familia.compras;
+
+      familia.produtos.forEach((item) => {
+        item.estoqueGeral =
+          item.estoque +
+          item.estoqueEadi +
+          item.compras;
+      });
 
       familia.produtos =
         Object.values(
@@ -732,6 +765,7 @@ export function aggregateData(rawData) {
 
 export function getSummary(rawData) {
   let estoque = 0;
+  let estoqueEadi = 0;
   let compras = 0;
   let consumo = 0;
 
@@ -740,6 +774,12 @@ export function getSummary(rawData) {
       estoque += Number(
         r.qtd_fisica || 0
       );
+    }
+  );
+
+  (rawData.estoqueEadi || []).forEach(
+    (r) => {
+      estoqueEadi += Number(r.qtd_fisica || 0);
     }
   );
 
@@ -761,9 +801,10 @@ export function getSummary(rawData) {
 
   return {
     estoque,
+    estoqueEadi,
     compras,
     consumo,
     estoqueGeral:
-      estoque + compras,
+      estoque + estoqueEadi + compras,
   };
 }

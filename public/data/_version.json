@@ -1,8 +1,9 @@
 {
-  "updatedAt": "2026-11-16T23:39:55.900Z",
+  "updatedAt": "2026-11-25T01:44:22.230Z",
   "counts": {
     "estoquetransfer": 127,
-    "compratransfer": 13,
-    "consumotransfer": 810
+    "estoqueeadi": 3,
+    "compratransfer": 10,
+    "consumotransfer": 823
   }
 }

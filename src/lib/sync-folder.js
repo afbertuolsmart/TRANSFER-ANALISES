@@ -19,6 +19,7 @@ import XLSX from 'xlsx';
 
 const DATASETS = [
   "estoquetransfer",
+  "estoqueeadi",
   "compratransfer",
   "consumotransfer",
 ];
@@ -39,10 +40,13 @@ const FIELD_MAP = {
   "Produto": "produto",
   "Cod.prod": "cod_prod",
   "Desc.completa": "desc_completa",
+  "Desc. Completa": "desc_completa",
+  "Desc completa": "desc_completa",
   "Descrição do produto": "desc_completa",
   "Familia": "familia",
   "Família": "familia",
   "Qtd.física": "qtd_fisica",
+  "Qtd. física": "qtd_fisica",
   "Qtd.aberto": "qtd_aberto",
   "Qtd.movimentada": "qtd_movimentada",
   "Dt.movto": "dt_movto",
@@ -95,6 +99,7 @@ if (!fs.existsSync(folder)) {
   console.log(
   "Coloque na pasta:\n" +
   "ESTOQUETRANSFER.xlsx\n" +
+  "ESTOQUEEADI.xlsx\n" +
   "COMPRATRANSFER.xlsx\n" +
   "CONSUMOTRANSFER.xlsx\n"
 );

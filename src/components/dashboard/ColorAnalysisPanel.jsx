@@ -94,11 +94,31 @@ export function ColorAnalysisPanel({ item, onBack }) {
 
         <Card className="p-4">
           <div className="text-xs text-muted-foreground">
+            Estoque EADI
+          </div>
+
+          <div className="text-2xl font-bold">
+            {fmtQty(item.estoqueEadi || 0)}
+          </div>
+        </Card>
+
+        <Card className="p-4">
+          <div className="text-xs text-muted-foreground">
             Compras
           </div>
 
           <div className="text-2xl font-bold">
             {fmtQty(item.compras)}
+          </div>
+        </Card>
+
+        <Card className="p-4">
+          <div className="text-xs text-muted-foreground">
+            Estoque Geral
+          </div>
+
+          <div className="text-2xl font-bold">
+            {fmtQty(item.estoqueGeral ?? ((item.estoque || 0) + (item.estoqueEadi || 0) + (item.compras || 0)))}
           </div>
         </Card>
 
