@@ -727,7 +727,7 @@ export function aggregateData(rawData) {
         familia.estoqueEadi +
         familia.compras;
 
-      familia.produtos.forEach((item) => {
+      Object.values(familia.produtos).forEach((item) => {
         item.estoqueGeral =
           item.estoque +
           item.estoqueEadi +
